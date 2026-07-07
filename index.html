@@ -301,6 +301,36 @@
       text-transform: uppercase;
     }
 
+    /* ── VIDEO ── */
+    .video-bg { background: var(--deep); }
+    .video-bg .section-header h2 { color: var(--white); }
+    .video-bg .section-eyebrow { color: var(--gold-light); }
+    .video-bg .divider { background: linear-gradient(90deg, var(--gold-light), var(--gold)); }
+    .video-bg .section-header p { color: #C8B99A; }
+    .video-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .video-frame {
+      position: relative;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 2px solid rgba(201,148,58,.35);
+      box-shadow: 0 16px 64px rgba(0,0,0,.5), 0 0 0 1px rgba(201,148,58,.1);
+      /* Portrait ratio for YouTube Shorts */
+      width: 360px;
+      max-width: 100%;
+      aspect-ratio: 9/16;
+    }
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
     /* ── CALENDAR ── */
     .calendar-bg { background: var(--cream); }
     .calendar-wrap {
@@ -543,6 +573,7 @@
     </button>
     <ul class="nav-links">
       <li><a href="#facilities" data-en="Facilities" data-ta="வசதிகள்">Facilities</a></li>
+      <li><a href="#video" data-en="Video" data-ta="வீடியோ">Video</a></li>
       <li><a href="#availability" data-en="Availability" data-ta="கிடைப்பு">Availability</a></li>
       <li><a href="#contact" data-en="Contact" data-ta="தொடர்பு">Contact</a></li>
     </ul>
@@ -669,6 +700,31 @@
           <span class="facility-badge" data-en="300 Bikes · 100 Cars" data-ta="300 இரு சக்கரம் · 100 நான்கு சக்கரம்">300 Bikes · 100 Cars</span>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section class="video-bg" id="video">
+    <div class="section-inner">
+      <div class="section-header">
+        <div class="section-eyebrow" data-en="See It Live" data-ta="நேரில் பாருங்கள்">See It Live</div>
+        <h2 data-en="Take a Virtual Tour" data-ta="மெய்நிகர் சுற்றுப்பயணம்">Take a Virtual Tour</h2>
+        <div class="divider"></div>
+        <p data-en="Watch our venue video to experience the beauty of Vijaya Ravi Mahal A/C before your visit." data-ta="உங்கள் வருகைக்கு முன்பு விஜய ரவி மஹால் A/C-ன் அழகை அனுபவிக்க எங்கள் வீடியோவை பாருங்கள்.">
+          Watch our venue video to experience the beauty of Vijaya Ravi Mahal A/C before your visit.
+        </p>
+      </div>
+      <div class="video-wrap">
+        <div class="video-frame">
+          <iframe
+            src="https://www.youtube.com/embed/HEuE7tqC4i4?autoplay=1&mute=1&loop=1&playlist=HEuE7tqC4i4&rel=0&playsinline=1"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen
+            loading="lazy"
+            title="Vijaya Ravi Mahal A/C – Venue Tour">
+          </iframe>
+        </div>
       </div>
     </div>
   </section>
@@ -801,24 +857,146 @@
     </p>
   </footer>
 
-  <script>
-    /* ── LANGUAGE TOGGLE ── */
-    let currentLang = 'en';
+  <!-- ── ADMIN LOGIN MODAL ── -->
+  <div id="admin-modal" style="display:none; position:fixed; inset:0; z-index:9999; background:rgba(10,6,2,.85); backdrop-filter:blur(6px); align-items:center; justify-content:center;">
+    <div style="background:#1C1209; border:1px solid rgba(201,148,58,.35); border-radius:14px; padding:40px 36px; width:100%; max-width:380px; margin:16px; box-shadow:0 24px 80px rgba(0,0,0,.6); position:relative;">
+      <button onclick="closeAdmin()" style="position:absolute;top:14px;right:16px;background:none;border:none;color:#7A6A55;font-size:22px;cursor:pointer;line-height:1;">✕</button>
+      <div style="text-align:center; margin-bottom:28px;">
+        <div style="font-size:36px; margin-bottom:10px;">🔐</div>
+        <h2 style="font-family:'Playfair Display',serif; color:#C9943A; font-size:22px; margin-bottom:4px;">Admin Login</h2>
+        <p style="color:#7A6A55; font-size:13px;">Vijaya Ravi Mahal A/C — Staff Only</p>
+      </div>
+      <div style="margin-bottom:16px;">
+        <label style="display:block; color:#C8B99A; font-size:12px; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">Username</label>
+        <input id="admin-user" type="text" placeholder="Enter username"
+          style="width:100%; padding:11px 14px; background:#2E1D0A; border:1px solid rgba(201,148,58,.25); border-radius:6px; color:#FAF6EF; font-size:15px; outline:none; transition:border .2s;"
+          onfocus="this.style.borderColor='#C9943A'" onblur="this.style.borderColor='rgba(201,148,58,.25)'"
+          onkeydown="if(event.key==='Enter') adminLogin()" />
+      </div>
+      <div style="margin-bottom:24px;">
+        <label style="display:block; color:#C8B99A; font-size:12px; letter-spacing:1px; text-transform:uppercase; margin-bottom:6px;">Password</label>
+        <input id="admin-pass" type="password" placeholder="Enter password"
+          style="width:100%; padding:11px 14px; background:#2E1D0A; border:1px solid rgba(201,148,58,.25); border-radius:6px; color:#FAF6EF; font-size:15px; outline:none; transition:border .2s;"
+          onfocus="this.style.borderColor='#C9943A'" onblur="this.style.borderColor='rgba(201,148,58,.25)'"
+          onkeydown="if(event.key==='Enter') adminLogin()" />
+      </div>
+      <div id="admin-error" style="display:none; background:rgba(184,50,50,.15); border:1px solid rgba(184,50,50,.4); color:#F2A0A0; font-size:13px; padding:10px 14px; border-radius:6px; margin-bottom:16px; text-align:center;">
+        ❌ Invalid username or password
+      </div>
+      <button onclick="adminLogin()"
+        style="width:100%; padding:13px; background:#C9943A; color:#1C1209; font-weight:700; font-size:15px; border:none; border-radius:6px; cursor:pointer; transition:background .2s; letter-spacing:.5px;"
+        onmouseover="this.style.background='#E8C97A'" onmouseout="this.style.background='#C9943A'">
+        Login →
+      </button>
+    </div>
+  </div>
 
+  <!-- ── ADMIN PANEL (shown when logged in) ── -->
+  <div id="admin-panel" style="display:none; position:fixed; bottom:24px; right:24px; z-index:999; width:320px; background:#1C1209; border:1px solid rgba(201,148,58,.35); border-radius:14px; box-shadow:0 12px 48px rgba(0,0,0,.5); overflow:hidden;">
+    <!-- Panel Header -->
+    <div style="background:rgba(201,148,58,.12); padding:14px 18px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid rgba(201,148,58,.2);">
+      <div>
+        <div style="color:#C9943A; font-weight:700; font-size:14px; letter-spacing:.5px;">⚙️ Admin Panel</div>
+        <div style="color:#7A6A55; font-size:11px; margin-top:1px;">Logged in as <span style="color:#E8C97A;">admin</span></div>
+      </div>
+      <button onclick="adminLogout()"
+        style="background:rgba(184,50,50,.2); border:1px solid rgba(184,50,50,.35); color:#F2A0A0; padding:5px 12px; border-radius:20px; font-size:12px; cursor:pointer; transition:background .2s;"
+        onmouseover="this.style.background='rgba(184,50,50,.4)'" onmouseout="this.style.background='rgba(184,50,50,.2)'">
+        Logout
+      </button>
+    </div>
+    <!-- Instructions -->
+    <div style="padding:12px 18px; background:rgba(201,148,58,.06); border-bottom:1px solid rgba(201,148,58,.1); font-size:12px; color:#A09080; line-height:1.5;">
+      💡 <strong style="color:#C8B99A;">Click any future date</strong> on the calendar to toggle it between <span style="color:#3A7D44;">Available</span> and <span style="color:#B83232;">Booked</span>.
+    </div>
+    <!-- Booked Dates List -->
+    <div style="padding:14px 18px;">
+      <div style="color:#C8B99A; font-size:12px; font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:10px;">Blocked Dates <span id="admin-count" style="background:rgba(201,148,58,.2); color:#C9943A; padding:1px 8px; border-radius:10px; font-size:11px; margin-left:4px;">0</span></div>
+      <div id="admin-dates-list" style="max-height:200px; overflow-y:auto; display:flex; flex-direction:column; gap:6px;">
+        <div style="color:#5A4A35; font-size:13px; text-align:center; padding:16px 0;" id="admin-empty-msg">No dates blocked yet</div>
+      </div>
+    </div>
+    <!-- Clear All -->
+    <div style="padding:0 18px 14px;">
+      <button onclick="clearAllDates()"
+        style="width:100%; padding:9px; background:rgba(184,50,50,.12); border:1px solid rgba(184,50,50,.3); color:#F2A0A0; font-size:13px; border-radius:6px; cursor:pointer; transition:background .2s;"
+        onmouseover="this.style.background='rgba(184,50,50,.25)'" onmouseout="this.style.background='rgba(184,50,50,.12)'">
+        🗑 Clear All Blocked Dates
+      </button>
+    </div>
+  </div>
+
+  <!-- ── ADMIN TRIGGER BUTTON ── -->
+  <button id="admin-trigger" onclick="openAdmin()"
+    title="Admin Login"
+    style="position:fixed; bottom:24px; right:24px; z-index:998; width:50px; height:50px; border-radius:50%; background:#1C1209; border:1px solid rgba(201,148,58,.4); color:#C9943A; font-size:20px; cursor:pointer; box-shadow:0 4px 20px rgba(0,0,0,.4); transition:all .2s;"
+    onmouseover="this.style.background='#2E1D0A'; this.style.transform='scale(1.08)'"
+    onmouseout="this.style.background='#1C1209'; this.style.transform='scale(1)'">
+    🔐
+  </button>
+
+  <style>
+    #admin-dates-list::-webkit-scrollbar { width: 4px; }
+    #admin-dates-list::-webkit-scrollbar-track { background: transparent; }
+    #admin-dates-list::-webkit-scrollbar-thumb { background: rgba(201,148,58,.3); border-radius: 4px; }
+    .admin-date-row {
+      display: flex; align-items: center; justify-content: space-between;
+      background: rgba(184,50,50,.1); border: 1px solid rgba(184,50,50,.2);
+      border-radius: 6px; padding: 7px 10px;
+    }
+    .admin-date-row span { color: #F2B8B8; font-size: 13px; font-weight: 500; }
+    .admin-date-row button {
+      background: none; border: none; color: #B83232; font-size: 16px;
+      cursor: pointer; line-height: 1; padding: 0 2px; transition: color .15s;
+    }
+    .admin-date-row button:hover { color: #FF6B6B; }
+    .cal-day.admin-clickable { cursor: pointer !important; }
+    .cal-day.admin-clickable:hover { filter: brightness(1.15); transform: scale(1.06); transition: all .12s; }
+  </style>
+
+  <script>
+    /* ════════════════════════════════
+       ADMIN CREDENTIALS — change these
+       ════════════════════════════════ */
+    const ADMIN_USER = 'admin';
+    const ADMIN_PASS = 'vijayadmin2025';
+
+    /* ── STATE ── */
+    let currentLang = 'en';
+    let isAdminLoggedIn = false;
+
+    // Load booked dates from localStorage (persists across browser sessions)
+    function loadBookedDates() {
+      try {
+        const saved = localStorage.getItem('vrm_booked_dates');
+        if (saved) return new Set(JSON.parse(saved));
+      } catch(e) {}
+      // Default sample dates
+      return new Set([
+        '2026-07-05','2026-07-12','2026-07-13','2026-07-19','2026-07-26',
+        '2026-08-02','2026-08-09','2026-08-16','2026-08-17','2026-08-23',
+        '2026-09-06','2026-09-07','2026-09-13','2026-09-20','2026-09-27',
+      ]);
+    }
+
+    function saveBookedDates() {
+      try { localStorage.setItem('vrm_booked_dates', JSON.stringify([...bookedDates])); } catch(e) {}
+    }
+
+    let bookedDates = loadBookedDates();
+
+    /* ── LANGUAGE ── */
     function setLang(lang) {
       currentLang = lang;
       document.body.classList.toggle('lang-ta', lang === 'ta');
       document.getElementById('btn-en').classList.toggle('active', lang === 'en');
       document.getElementById('btn-ta').classList.toggle('active', lang === 'ta');
-
       document.querySelectorAll('[data-en]').forEach(el => {
         const text = el.getAttribute('data-' + lang);
         if (!text) return;
-        // Handle innerHTML (for <em> tags)
         if (text.includes('<')) { el.innerHTML = text; }
         else { el.textContent = text; }
       });
-
       renderCalendar();
     }
 
@@ -827,14 +1005,97 @@
       document.getElementById('main-nav').classList.toggle('open');
     }
 
-    /* ── CALENDAR ── */
-    // Sample booked dates (YYYY-MM-DD)
-    const bookedDates = new Set([
-      '2026-07-05', '2026-07-12', '2026-07-13', '2026-07-19', '2026-07-26',
-      '2026-08-02', '2026-08-09', '2026-08-16', '2026-08-17', '2026-08-23',
-      '2026-09-06', '2026-09-07', '2026-09-13', '2026-09-20', '2026-09-27',
-    ]);
+    /* ── ADMIN LOGIN ── */
+    function openAdmin() {
+      if (isAdminLoggedIn) return; // panel already visible
+      const modal = document.getElementById('admin-modal');
+      modal.style.display = 'flex';
+      document.getElementById('admin-user').value = '';
+      document.getElementById('admin-pass').value = '';
+      document.getElementById('admin-error').style.display = 'none';
+      setTimeout(() => document.getElementById('admin-user').focus(), 100);
+    }
 
+    function closeAdmin() {
+      document.getElementById('admin-modal').style.display = 'none';
+    }
+
+    function adminLogin() {
+      const u = document.getElementById('admin-user').value.trim();
+      const p = document.getElementById('admin-pass').value;
+      if (u === ADMIN_USER && p === ADMIN_PASS) {
+        isAdminLoggedIn = true;
+        document.getElementById('admin-modal').style.display = 'none';
+        document.getElementById('admin-trigger').style.display = 'none';
+        document.getElementById('admin-panel').style.display = 'block';
+        renderCalendar();
+        refreshAdminList();
+      } else {
+        document.getElementById('admin-error').style.display = 'block';
+        document.getElementById('admin-pass').value = '';
+        document.getElementById('admin-pass').focus();
+      }
+    }
+
+    function adminLogout() {
+      isAdminLoggedIn = false;
+      document.getElementById('admin-panel').style.display = 'none';
+      document.getElementById('admin-trigger').style.display = 'flex';
+      renderCalendar();
+    }
+
+    /* ── TOGGLE DATE (admin only) ── */
+    function toggleDate(dateStr) {
+      if (!isAdminLoggedIn) return;
+      if (bookedDates.has(dateStr)) {
+        bookedDates.delete(dateStr);
+      } else {
+        bookedDates.add(dateStr);
+      }
+      saveBookedDates();
+      renderCalendar();
+      refreshAdminList();
+    }
+
+    function clearAllDates() {
+      if (!confirm('Clear all blocked dates? This cannot be undone.')) return;
+      bookedDates.clear();
+      saveBookedDates();
+      renderCalendar();
+      refreshAdminList();
+    }
+
+    function removeSingleDate(dateStr) {
+      bookedDates.delete(dateStr);
+      saveBookedDates();
+      renderCalendar();
+      refreshAdminList();
+    }
+
+    /* ── ADMIN LIST ── */
+    function refreshAdminList() {
+      const list = document.getElementById('admin-dates-list');
+      const count = document.getElementById('admin-count');
+      const emptyMsg = document.getElementById('admin-empty-msg');
+      const sorted = [...bookedDates].sort();
+      count.textContent = sorted.length;
+
+      list.innerHTML = '';
+      if (sorted.length === 0) {
+        list.innerHTML = '<div style="color:#5A4A35;font-size:13px;text-align:center;padding:16px 0;">No dates blocked yet</div>';
+        return;
+      }
+      sorted.forEach(d => {
+        const row = document.createElement('div');
+        row.className = 'admin-date-row';
+        const dateObj = new Date(d + 'T00:00:00');
+        const label = dateObj.toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' });
+        row.innerHTML = `<span>🔴 ${label}</span><button onclick="removeSingleDate('${d}')" title="Unblock">✕</button>`;
+        list.appendChild(row);
+      });
+    }
+
+    /* ── CALENDAR ── */
     const monthsEn = ['January','February','March','April','May','June','July','August','September','October','November','December'];
     const monthsTa = ['ஜனவரி','பிப்ரவரி','மார்ச்','ஏப்ரல்','மே','ஜூன்','ஜூலை','ஆகஸ்ட்','செப்டம்பர்','அக்டோபர்','நவம்பர்','டிசம்பர்'];
 
@@ -851,7 +1112,6 @@
     function renderCalendar() {
       const today = new Date();
       const todayStr = toDateStr(today.getFullYear(), today.getMonth(), today.getDate());
-
       const months = currentLang === 'ta' ? monthsTa : monthsEn;
       document.getElementById('cal-month-label').textContent = months[viewMonth] + ' ' + viewYear;
 
@@ -861,7 +1121,6 @@
       const firstDay = new Date(viewYear, viewMonth, 1).getDay();
       const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
 
-      // Empty cells
       for (let i = 0; i < firstDay; i++) {
         const empty = document.createElement('div');
         empty.className = 'cal-day empty';
@@ -880,10 +1139,25 @@
         else if (isBooked) cls += 'booked';
         else cls += 'available';
         if (isToday) cls += ' today';
+        if (isAdminLoggedIn && !isPast) cls += ' admin-clickable';
 
         cell.className = cls;
-        cell.innerHTML = `<span>${d}</span><div class="dot"></div>`;
-        cell.title = isBooked ? (currentLang === 'ta' ? 'முன்பதிவு செய்யப்பட்டது' : 'Booked') : (isPast ? '' : (currentLang === 'ta' ? 'கிடைக்கிறது' : 'Available'));
+
+        // Admin: show toggle hint
+        let dotHtml = '<div class="dot"></div>';
+        if (isAdminLoggedIn && !isPast) {
+          dotHtml = `<div style="font-size:8px;color:${isBooked?'#B83232':'#3A7D44'};margin-top:1px;">${isBooked?'✕':'✓'}</div>`;
+        }
+        cell.innerHTML = `<span>${d}</span>${dotHtml}`;
+
+        if (isAdminLoggedIn && !isPast) {
+          cell.title = isBooked ? 'Click to unblock' : 'Click to block';
+          cell.addEventListener('click', () => toggleDate(dateStr));
+        } else {
+          cell.title = isBooked
+            ? (currentLang === 'ta' ? 'முன்பதிவு செய்யப்பட்டது' : 'Booked')
+            : (isPast ? '' : (currentLang === 'ta' ? 'கிடைக்கிறது' : 'Available'));
+        }
         grid.appendChild(cell);
       }
     }
