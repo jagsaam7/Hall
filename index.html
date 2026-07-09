@@ -37,7 +37,11 @@
     .tamil body, body.tamil {
       font-family: 'Noto Serif Tamil', 'Inter', sans-serif;
     }
-
+    
+	img {
+    max-width: 100%;
+    max-height: 100%;
+}
     /* ── LANG TOGGLE ── */
     .lang-bar {
       background: var(--deep);
@@ -106,6 +110,110 @@
     .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
     .hamburger span { display: block; width: 24px; height: 2px; background: var(--gold); border-radius: 2px; transition: .3s; }
 
+    /*******************/
+     /* ── TOP BANNER WITH IMAGE & DATE/TIME ── */
+    .top-banner {
+      position: relative;
+      width: 100%;
+      min-height: 120px;
+      background: linear-gradient(135deg, #1C1209 0%, #2E1D0A 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 32px;
+      border-bottom: 2px solid var(--gold);
+      gap: 30px;
+    }
+
+    .banner-logo-section {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .banner-logo img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid var(--gold);
+      box-shadow: 0 4px 12px rgba(201, 148, 58, 0.3);
+      transition: transform 0.3s ease;
+    }
+
+    .banner-logo img:hover {
+      transform: scale(1.05);
+    }
+
+    .banner-text h2 {
+      color: var(--gold);
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 700;
+      margin: 0;
+      line-height: 1.2;
+    }
+
+    .banner-text p {
+      color: var(--gold-light);
+      font-size: 13px;
+      margin: 4px 0 0 0;
+      letter-spacing: 1px;
+    }
+
+    .banner-datetime {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      padding: 15px 20px;
+      background: rgba(201, 148, 58, 0.08);
+      border: 1px solid rgba(201, 148, 58, 0.2);
+      border-radius: 8px;
+      min-width: 200px;
+    }
+
+    .datetime-label {
+      color: var(--gold-light);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-weight: 600;
+    }
+
+    .datetime-display {
+      color: var(--gold);
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Courier New', monospace;
+    }
+
+    .date-display {
+      font-size: 14px;
+      color: #C8B99A;
+      font-family: 'Inter', sans-serif;
+    }
+
+    @media (max-width: 768px) {
+      .top-banner {
+        flex-direction: column;
+        padding: 15px 20px;
+        min-height: auto;
+      }
+
+      .banner-datetime {
+        width: 100%;
+        align-items: center;
+        min-width: unset;
+      }
+
+      .banner-text h2 {
+        font-size: 18px;
+      }
+    }
+
+    /**********************/
+    
     /* ── HERO ── */
     .hero {
       min-height: 92vh;
